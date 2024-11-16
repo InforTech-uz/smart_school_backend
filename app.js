@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require("body-parser")
 require("dotenv/config")
 const api = process.env.API_URL;
+const morgan = require("morgan")
 const mongoose = require("mongoose")
 const cors = require("cors")
 const authJwt = require("./helpers/jwt");
@@ -15,6 +16,10 @@ app.use(bodyParser.json());
 app.use(morgan("tiny"));
 app.use(authJwt()); // Apply the JWT middleware
 app.use("/public/uploads", express.static(__dirname + "/public/uploads"))
+
+app.get(`${api}`, (req,res) => {
+  res.json({success: true})
+})
 
 
 // Connect to db
