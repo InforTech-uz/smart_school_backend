@@ -1,22 +1,16 @@
 const express = require("express");
 const app = express();
-const bodyParser = require("body-parser")
 require("dotenv/config")
-const api = process.env.API_URL;
-const morgan = require("morgan")
 const mongoose = require("mongoose")
-const cors = require("cors")
-const authJwt = require("./helpers/jwt");
-
-app.use(cors());
-app.options("*", cors());
+const fileUpload = require('express-fileupload')
 
 // Middlewares
-app.use(bodyParser.json());
-app.use(morgan("tiny"));
-app.use(authJwt()); // Apply the JWT middleware
-app.use("/public/uploads", express.static(__dirname + "/public/uploads"))
+app.use(express.json())
+app.use(express.static('static'))
+app.use(fileUpload({}))
 
+//Routes
+app.use("/api/v1/auth", require('./routes/auth.route'))
 
 
 const PORT = process.env.PORT || 3000
