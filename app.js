@@ -11,6 +11,7 @@ app.use(fileUpload({}))
 
 //Routes
 app.use("/api/v1/auth", require('./routes/auth.route'))
+app.use("/api/v1/user", require("./routes/user.route"))
 
 
 const PORT = process.env.PORT || 3000
